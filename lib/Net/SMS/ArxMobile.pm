@@ -81,7 +81,7 @@ sub _useragent {
 
     my $ua = LWP::UserAgent->new();
     $ua->timeout(API_TIMEOUT);
-    $ua->agent("Net::SMS::ArxMobile/$VERSION");
+    $ua->agent("Net::SMS::ArxMobile/$Net::SMS::ArxMobile::VERSION");
 
     return $ua;
 }
