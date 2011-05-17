@@ -1,11 +1,56 @@
 package Net::SMS::ArxMobile;
 
+# ABSTRACT: Send SMS messages via the ArXMobile HTTP API
+
 use strict;
 use warnings;
 
-# ABSTRACT: Send SMS messages via the ArXMobile HTTP API
+=pod
 
-our $VERSION = '0.01';
+=head1 SYNOPSIS
+
+  # Create a testing sender
+  my $arx = Net::SMS::ArxMobile->new(
+      _auth_code => '{ArXMobile auth code}',
+  );
+
+  # Send a message
+  my $sent = $arx->send_sms(
+      text => "You're in a maze of twisty little passages, all alike.",
+      to   => '+1 888 555 1212',
+  );
+
+  if ($sent) {
+      # Message sent
+  }
+  else {
+      # Something failed
+  }
+
+=head1 DESCRIPTION
+
+Perl module to send SMS messages through the HTTP API provided by ArxMobile
+(www.arxmobile.com).
+
+B<NOTE: Your ability to send messages outside of the United States
+could be limited>.
+
+Example of formats that work are:
+
+=over 4
+
+=item C<+1 888 555 1234>
+
+=item C<18885551234>
+
+=back
+
+I have never tried this code with non-US numbers. Probably it works.
+Probably depends on your auth code?
+
+Probably the Earth will be hit by a massive asteroid in 5 seconds.
+
+=cut
 
 use Carp ();
 #se Data::Dumper ();
@@ -192,68 +237,16 @@ sub send_sms {
 
 1;
 
-
-__END__
-
 =pod
-
-=head1 NAME
-
-Net::SMS::ArxMobile - Use the ArxMobile HTTP API to send SMS messages
-
-=head1 SYNOPSIS
-
-  # Create a testing sender
-  my $arx = Net::SMS::ArxMobile->new(
-      _auth_code => '{ArXMobile auth code}',
-  );
-
-  # Send a message
-  my $sent = $arx->send_sms(
-      text => "You're in a maze of twisty little passages, all alike.",
-      to   => '+1 888 555 1212',
-  );
-
-  if ($sent) {
-      # Message sent
-  }
-  else {
-      # Something failed
-  }
-
-=head1 DESCRIPTION
-
-Perl module to send SMS messages through the HTTP API provided by ArxMobile
-(www.arxmobile.com).
-
-B<NOTE: Your ability to send messages outside of the United States
-could be limited>.
-
-Example of formats that work are:
-
-=over 4
-
-=item C<+1 888 555 1234>
-
-=item C<18885551234>
-
-=back
-
-I have never tried this code with non-US numbers. Probably it works.
-Probably depends on your auth code?
-
-Probably the Earth will be hit by a massive asteroid in 5 seconds.
 
 =head1 METHODS
 
-=head2 CONSTRUCTOR
-
-=head3 C<new( _auth_code => '{ArxMobile auth code}')>
+=head2 C<new( _auth_code => '{ArxMobile auth code}')>
 
 Nothing fancy. You need to supply your Arxmobile auth code
 in the constructor, or it will complain loudly.
 
-=head3 C<send_sms(to => $phone_number, text => $message)>
+=head2 C<send_sms(to => $phone_number, text => $message)>
 
 Uses the API to send a message given in C<$message> to
 the phone number given in C<$phone_number>.
@@ -278,7 +271,7 @@ method.
 
 This API is explicitly C<SMS::Send> compatible.
 
-=head3 C<query_smsid(smsid => $smsid)>
+=head2 C<query_smsid(smsid => $smsid)>
 
 Queries the ArxMobile server to check the status of an SMS given its
 B<smsid>. The B<smsid> is obtained through a successful C<send_sms()> call.
@@ -309,19 +302,5 @@ This parsing B<does not account for multiple results>.
 
 =head1 SEE ALSO
 
-=head3 ArXMobile website, http://www.arxmobile.com/
-
-=head1 AUTHOR
-
-Cosimo Streppone, <cosimo@opera.com>
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2011 Opera Software ASA
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-This software is copyright (c) 2011 by Cosimo Streppone
-
-=cut
+=head2 ArXMobile website, http://www.arxmobile.com/
 
