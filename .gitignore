@@ -5,3 +5,5 @@ Makefile.old
 blib
 pod2htm*
 .build
+Net-SMS-ArxMobile-*
+
